@@ -1,6 +1,6 @@
 <?php
 
-function summarise_sales_report( $filename ) {
+function summarise_sales_report( $filename, $date_format = 'Y-W' ) {
 	$_fh = fopen( $filename, 'r' );
 
 	$_headers = array_flip( fgetcsv( $_fh ) );
@@ -14,7 +14,7 @@ function summarise_sales_report( $filename ) {
 		$_purchased_on = $_data[ $_headers[ 'Purchase Date' ] ];
 		$_volume = $_data[ $_headers[ 'Ticket Count' ] ];
 
-		$_purchase_week = date( 'Y-W', strtotime( $_purchased_on ) );
+		$_purchase_week = date( $date_format, strtotime( $_purchased_on ) );
 
 		if ( isset( $_summary[ $_show ][ $_purchase_week ] ) ) {
 			$_summary[ $_show ][ $_purchase_week ] += $_volume;
@@ -37,11 +37,14 @@ function graph_sales_for_show( $show_sales ) {
 
 	foreach( $show_sales as $_show => $_sales ) {
 		echo "\n{$_show}\n";
+		$_total = 0;
 		foreach( $_sales as $_week => $_sold ) {
 			echo "{$_week}\t{$_sold}\t" . str_repeat( '#', floor( $_sold / $_sales_per_char ) ) . "\n";
+			$_total += $_sold;
 		}
+		echo "Total\t{$_total}\n\n";
 	}
 }
 
-$__summary = summarise_sales_report( realpath( 'Sales_Listing-_Online_-_Box_Office.csv' ) );
+$__summary = summarise_sales_report( realpath( 'Sales_Listing-_Online_-_Box_Office.csv' ), 'Y-m-d' );
 graph_sales_for_show( $__summary );
