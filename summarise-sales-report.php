@@ -32,19 +32,22 @@ function summarise_sales_report( $filename, $date_format = 'Y-W' ) {
 	return $_summary;
 }
 
-function graph_sales_for_show( $show_sales ) {
-	$_sales_per_char = 5;
+function graph_sales_for_show( $show_sales, $sales_per_char = 20 ) {
 
 	foreach( $show_sales as $_show => $_sales ) {
 		echo "\n{$_show}\n";
 		$_total = 0;
 		foreach( $_sales as $_week => $_sold ) {
-			echo "{$_week}\t{$_sold}\t" . str_repeat( '#', floor( $_sold / $_sales_per_char ) ) . "\n";
+			echo "{$_week}\t{$_sold}\t" . str_repeat( '#', floor( $_sold / $sales_per_char ) ) . "\n";
 			$_total += $_sold;
 		}
 		echo "Total\t{$_total}\n\n";
 	}
 }
 
-$__summary = summarise_sales_report( realpath( 'Sales_Listing-_Online_-_Box_Office.csv' ), 'Y-m-d' );
+$__summary = summarise_sales_report( realpath( 'Sales_Listing-_Online_-_Box_Office.csv' ), 'Y-W' );
 graph_sales_for_show( $__summary );
+
+
+$__summary = summarise_sales_report( realpath( 'Sales_Listing-_Online_-_Box_Office.csv' ), 'Y-m-d' );
+graph_sales_for_show( $__summary, 5 );
