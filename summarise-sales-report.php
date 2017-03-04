@@ -1,29 +1,26 @@
 <?php
 
+require_once( 'generic-report-parser.php' );
+
 function summarise_sales_report( $filename, $date_format = 'Y-W' ) {
-	$_fh = fopen( $filename, 'r' );
 
-	$_headers = array_flip( fgetcsv( $_fh ) );
-	
-	$_summary = array();
+	$_file = new ArtsPeople_Report( $filename );
 
-	do {
-		$_data = fgetcsv( $_fh );
-		$_type = $_data[ $_headers[ 'Bought What' ] ];
-		$_show = $_data[ $_headers[ 'Show Name' ] ];
-		$_purchased_on = $_data[ $_headers[ 'Purchase Date' ] ];
-		$_volume = $_data[ $_headers[ 'Ticket Count' ] ];
 
-		$_purchase_week = date( $date_format, strtotime( $_purchased_on ) );
+	foreach( $_file->parsed_file as $_entry ) {
+		$_type = $_entry[ 'Bought What' ];
+		$_show = $_entry[ 'Show Name' ];
+		$_purchased_on = $_entry[ 'Purchase Date' ];
+		$_volume = $_entry[ 'Ticket Count' ];
 
-		if ( isset( $_summary[ $_show ][ $_purchase_week ] ) ) {
-			$_summary[ $_show ][ $_purchase_week ] += $_volume;
+		$_purchase_date_formatted = date( $date_format, strtotime( $_purchased_on ) );
+
+		if ( isset( $_summary[ $_show ][ $_purchase_date_formatted ] ) ) {
+			$_summary[ $_show ][ $_purchase_date_formatted ] += $_volume;
 		} else {
-			$_summary[ $_show ][ $_purchase_week ] = $_volume;
+			$_summary[ $_show ][ $_purchase_date_formatted ] = $_volume;
 		}
-	} while ( !feof( $_fh ) );
-
-	fclose( $_fh );
+	}
 
 	foreach( $_summary as $_show => &$_weeks ) {
 		ksort( $_weeks );
