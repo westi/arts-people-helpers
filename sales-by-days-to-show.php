@@ -47,6 +47,29 @@ function graph_sales_for_show( $show_sales, $sales_per_char = 25 ) {
 	}
 }
 
+function csv_sales_for_shows( $show_sales, $shows ) {
+	$_max_days = 0;
+	foreach( $show_sales as $_show => $_sales ) {
+		$_max_days = max( $_max_days, key( $_sales ) );
+	}
+
+	$_stdout = fopen("php://output", "w");
+	fputcsv( $_stdout, array_merge( array( 'days' ), array_keys( $shows) ) );
+	foreach( range( $_max_days, -3 ) as $_day ) {
+		$_row = array();
+		$_row[] = $_day;
+		foreach( $shows as $_show => $_ignore ) {
+			if ( isset( $show_sales[ $_show ][ $_day ] ) ) {
+				$_row[] = $show_sales[ $_show ][ $_day ];
+			} else {
+				$_row[] = 0;
+			}
+		}
+		fputcsv( $_stdout, $_row );
+	}
+
+}
+
 $__summary = summarise_sales_report(
 	realpath( 'Sales_Listing-_Online_-_Box_Office.csv.alltime' ),
 	array(
@@ -56,6 +79,14 @@ $__summary = summarise_sales_report(
 	)
 );
 graph_sales_for_show( $__summary );
+csv_sales_for_shows(
+	$__summary,
+	array(
+		'A Dark & Stormy Night' => '2015-03-26',
+		'Its All Greek To Me' => '2016-03-31',
+		'Step Right Up' => '2017-03-23',
+	)
+);
 
 $__summary = summarise_sales_report(
 	realpath( 'Sales_Listing-_Online_-_Box_Office.csv' ),
@@ -64,3 +95,11 @@ $__summary = summarise_sales_report(
 	)
 );
 graph_sales_for_show( $__summary );
+csv_sales_for_shows(
+	$__summary,
+	array(
+		'A Dark & Stormy Night' => '2015-03-26',
+		'Its All Greek To Me' => '2016-03-31',
+		'Step Right Up' => '2017-03-23',
+	)
+);
