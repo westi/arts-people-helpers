@@ -1,4 +1,5 @@
 <?php
+date_default_timezone_set('UTC');
 
 require_once( 'generic-report-parser.php' );
 
@@ -42,9 +43,9 @@ function graph_sales_for_show( $show_sales, $sales_per_char = 20 ) {
 	}
 }
 
-$__summary = summarise_sales_report( realpath( 'Sales_Listing-_Online_-_Box_Office.csv' ), 'Y-W' );
+$__summary = summarise_sales_report( realpath( 'Sales_Listing__Online___Box_Office.csv' ), 'Y-W' );
 graph_sales_for_show( $__summary );
 
 
-$__summary = summarise_sales_report( realpath( 'Sales_Listing-_Online_-_Box_Office.csv' ), 'Y-m-d' );
+$__summary = summarise_sales_report( realpath( 'Sales_Listing__Online___Box_Office.csv' ), 'Y-m-d' );
 graph_sales_for_show( $__summary, 5 );

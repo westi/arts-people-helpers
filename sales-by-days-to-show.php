@@ -1,4 +1,5 @@
 <?php
+date_default_timezone_set('UTC');
 
 require_once( 'generic-report-parser.php' );
 
@@ -71,11 +72,12 @@ function csv_sales_for_shows( $show_sales, $shows ) {
 }
 
 $__summary = summarise_sales_report(
-	realpath( 'Sales_Listing-_Online_-_Box_Office.csv.alltime' ),
+	realpath( 'Sales_Listing__Online___Box_Office.csv.alltime' ),
 	array(
 		'A Dark & Stormy Night' => '2015-03-26',
 		'Its All Greek To Me' => '2016-03-31',
 		'Step Right Up' => '2017-03-23',
+		'In The Same Boat' => '2018-03-22',
 	)
 );
 graph_sales_for_show( $__summary );
@@ -85,13 +87,14 @@ csv_sales_for_shows(
 		'A Dark & Stormy Night' => '2015-03-26',
 		'Its All Greek To Me' => '2016-03-31',
 		'Step Right Up' => '2017-03-23',
+		'In The Same Boat' => '2018-03-22',
 	)
 );
 
 $__summary = summarise_sales_report(
-	realpath( 'Sales_Listing-_Online_-_Box_Office.csv' ),
+	realpath( 'Sales_Listing__Online___Box_Office.csv' ),
 	array(
-		'Step Right Up' => '2017-03-23',
+		'In The Same Boat' => '2018-03-22',
 	)
 );
 graph_sales_for_show( $__summary );
@@ -101,5 +104,6 @@ csv_sales_for_shows(
 		'A Dark & Stormy Night' => '2015-03-26',
 		'Its All Greek To Me' => '2016-03-31',
 		'Step Right Up' => '2017-03-23',
+		'In The Same Boat' => '2018-03-22',
 	)
 );
