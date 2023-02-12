@@ -118,7 +118,7 @@ function calculate_shows_seen( $_data, $_for_show, $_shows ) {
 
 
 analyse_sales_report(
-	realpath( 'Sales_Listing-_Online_-_Box_Office.csv.alltime' ),
+	realpath( 'Sales_Listing__Online___Box_Office.csv.alltime' ),
 	array(
 		2011 => 'Death of a Star', // 2011
 		2012 => 'A Night at Nicks', // 2012
@@ -127,5 +127,6 @@ analyse_sales_report(
 		2015 => 'A Dark & Stormy Night', // 2015
 		2016 => 'Its All Greek To Me', // 2016
 		2017 => 'Step Right Up', // 2017
+		2018 => 'In The Same Boat', // 2018
 	)
 );
