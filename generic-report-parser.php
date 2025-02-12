@@ -15,7 +15,7 @@ class ArtsPeople_Report {
 		$_summary = array();
 	
 		do {
-			$_data = fgetcsv( $_fh );
+			$_data = fgetcsv( $_fh, 0, ",", '"', "\\" );
 			$_new_line = array();
 			foreach( $_headers as $_header_value => $_header_loc ) {
 				$_new_line[ $_header_value ] = $_data[ $_header_loc ];

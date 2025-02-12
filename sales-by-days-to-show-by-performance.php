@@ -8,11 +8,10 @@ function summarise_sales_report( $filename, $first_show_dates ) {
 	$_file = new ArtsPeople_Report( $filename );
 
 	foreach( $_file->parsed_file as $_entry ) {
-		$_type = $_entry[ 'Bought What' ];
-		$_show = $_entry[ 'Show Name' ];
-		$_perfomance = $_entry[ 'Ticket Date' ];
-		$_purchased_on = $_entry[ 'Purchase Date' ];
-		$_volume = $_entry[ 'Ticket Count' ];
+		$_show = $_entry[ 'Item name' ];
+		$_perfomance = $_entry[ 'Perf date/time' ];
+		$_purchased_on = $_entry[ 'Date/time' ];
+		$_volume = $_entry[ 'Item count' ];
 
 		if ( isset( $first_show_dates[ $_show ] ) ) {
 			$_elapsed_days_seconds = strtotime( $first_show_dates[ $_show ] ) - strtotime( date( 'Y-m-d', strtotime( $_purchased_on ) ) );
@@ -68,7 +67,7 @@ function csv_sales_for_show( $show_sales, $show ) {
 	}
 
 	$_stdout = fopen("php://output", "w");
-	fputcsv( $_stdout, array_merge( array( 'days' ), $_performances ) );
+	fputcsv( $_stdout, array_merge( array( 'days' ), $_performances), ',', '"', '\\' );
 	foreach( range( $_max_days, -3 ) as $_day ) {
 		$_row = array();
 		$_row[] = $_day;
@@ -79,7 +78,7 @@ function csv_sales_for_show( $show_sales, $show ) {
 				$_row[] = 0;
 			}
 		}
-		fputcsv( $_stdout, $_row );
+		fputcsv( $_stdout, $_row, ',', '"', '\\' );
 	}
 
 }
@@ -105,10 +104,10 @@ csv_sales_for_shows(
 );
 */
 $__summary = summarise_sales_report(
-	realpath( 'Sales_Listing__Online___Box_Office.csv' ),
+	realpath( 'Peter - Ticket Sales Detail Report, 2025 Magic Moments - Don\'t Stop Believin - In Person Tickets - All Performances.csv' ),
 	array(
-		'In The Same Boat' => '2018-03-22',
+		'Don\'t Stop Believin - In Person Tickets' => '2025-03-27',
 	)
 );
 graph_sales_for_show( $__summary );
-csv_sales_for_show( $__summary,	'In The Same Boat' );
+csv_sales_for_show( $__summary,	'Don\'t Stop Believin - In Person Tickets' );
