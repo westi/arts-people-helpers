@@ -128,5 +128,8 @@ analyse_sales_report(
 		2016 => 'Its All Greek To Me', // 2016
 		2017 => 'Step Right Up', // 2017
 		2018 => 'In The Same Boat', // 2018
+		2019 => 'Boulevard of Broken Dreams',
+		2022 => 'Take the High Road',
+		2023 => 'The Envelope',
 	)
 );
