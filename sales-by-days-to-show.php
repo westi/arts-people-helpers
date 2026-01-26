@@ -49,7 +49,7 @@ function graph_sales_for_show( $show_sales, $sales_per_char = 25 ) {
 }
 
 function csv_sales_for_shows( $show_sales, $shows ) {
-	$_max_days = 0;
+	$_max_days = 67;
 	foreach( $show_sales as $_show => $_sales ) {
 		$_max_days = max( $_max_days, key( $_sales ) );
 	}
