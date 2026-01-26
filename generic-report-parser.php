@@ -10,7 +10,7 @@ class ArtsPeople_Report {
 	private function parse( $_filename ) {
 		$_fh = fopen( $_filename, 'r' );
 	
-		$_headers = array_flip( fgetcsv( $_fh ) );
+		$_headers = array_flip( fgetcsv( $_fh, 0, ",", '"', "\\" ) );
 		
 		$_summary = array();
 	

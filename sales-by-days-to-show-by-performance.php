@@ -104,10 +104,10 @@ csv_sales_for_shows(
 );
 */
 $__summary = summarise_sales_report(
-	realpath( 'Peter - Ticket Sales Detail Report, 2025 Magic Moments - Don\'t Stop Believin - In Person Tickets - All Performances.csv' ),
+	realpath( 'Peter - Ticket Sales Detail Report, 2026 Magic Moments - Another Night At Nick\'s - In Person - All Performances.csv' ),
 	array(
-		'Don\'t Stop Believin - In Person Tickets' => '2025-03-27',
+		'Another Night At Nick\'s - In Person' => '2026-03-26',
 	)
 );
 graph_sales_for_show( $__summary );
-csv_sales_for_show( $__summary,	'Don\'t Stop Believin - In Person Tickets' );
+csv_sales_for_show( $__summary,	'Another Night At Nick\'s - In Person' );
